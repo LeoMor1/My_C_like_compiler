@@ -1,0 +1,8 @@
+#build
+build
+
+#IDE
+.vscode
+
+#env
+.direnv
