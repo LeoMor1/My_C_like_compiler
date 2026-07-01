@@ -1,6 +1,4 @@
 #include "lexer.h"
-#include "token.h"
-#include "scan.h"
 
 void scanfile(LexerData *data)
 {
@@ -9,6 +7,6 @@ void scanfile(LexerData *data)
     do 
     {
         scan(data, &token);
-        printfToken(&token);
+        printf("%s\n", tokenToStr(&token));
     } while (token.token != T_EOF);
 }

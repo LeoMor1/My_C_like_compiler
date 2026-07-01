@@ -59,6 +59,6 @@ char* tokenTypeToStr(TokenType type);
  * Prints the details of a token.
  * @param token The token to print.
  */
-void printfToken(Token *token);
+char* tokenToStr(Token *token);
 
 #endif

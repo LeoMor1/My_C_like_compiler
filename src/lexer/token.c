@@ -1,4 +1,6 @@
 #include "token.h"
+#include <stdlib.h>
+#include <string.h>
 
 char* tokenTypeToStr(TokenType type)
 {
@@ -27,10 +29,16 @@ char* tokenTypeToStr(TokenType type)
     }
 }
 
-void printfToken(Token *token) 
+char* tokenToStr(Token *token)
 {
-    printf("Token %s", tokenTypeToStr(token->token));
-    if (token->token == T_INTLIT)
-        printf(", value %d", token->intValue);
-    printf("\n");
+    char *tokenStr = malloc(50 * sizeof(char));
+    if (tokenStr == NULL) {
+        return NULL; // Handle memory allocation failure
+    }
+
+    snprintf(tokenStr, 50, "Token Type: %s", tokenTypeToStr(token->token));
+    if (token->token == T_INTLIT) {
+        snprintf(tokenStr + strlen(tokenStr), 50 - strlen(tokenStr), ", Value: %d", token->intValue);
+    }
+    return tokenStr;
 }
