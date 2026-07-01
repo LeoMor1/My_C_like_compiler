@@ -1,4 +1,4 @@
-#include "lexer/utils.h"
+#include "utils.h"
 
 int chrpos(char *s, int c)
 {

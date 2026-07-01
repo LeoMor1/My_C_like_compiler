@@ -1,36 +1,28 @@
-#define extern_
-#include "lexer/data.h"
-#undef extern_
-#include "lexer/token.h"
-#include "lexer/scan.h"
+#include "lexer/lexer.h"
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
 
-static void init()
+/** 
+ * Initializes the lexer data.
+ * @param newData The lexer data to initialize.
+ */
+static void init(LexerData *newData)
 {
-    Line = 0;
-    Column = 1;
-    Putback = '\n';
+
+    newData->column = 1;
+    newData->line = 0;
+    newData->putback = '\n';
+    newData->infile = NULL;
 }
 
+/** 
+ * Prints the usage message for the program.
+ * @param prog The name of the program.
+ */
 static void usage(char * prog)
 {
     fprintf(stderr, "Usage: %s infile\n", prog);
-} 
-
-char *tokstr[] = { "+", "-", "*", "/", "intlit" };
-
-static void scanfile() 
-{
-    struct Token T;
-
-    while (scan(&T))
-    {
-        printf("Token %s", tokstr[T.token]);
-        if (T.token == T_INTLIT)
-            printf(", value %d", T.intValue);
-        printf("\n");
-    }
 }
 
 int main(int argc, char **argv){
@@ -40,13 +32,15 @@ int main(int argc, char **argv){
         return 0;
     }
 
-    init();
+    LexerData data;
+
+    init(&data);
     
-    if ((Infile = fopen(argv[1], "r")) == NULL) {
+    if ((data.infile = fopen(argv[1], "r")) == NULL) {
         fprintf(stderr, "Unable to open %s: %s\n", argv[1], strerror(errno));
         return 1;
     }
     
-    scanfile();
+    scanfile(&data);
     return 0;
 }

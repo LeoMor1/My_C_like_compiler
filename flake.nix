@@ -16,6 +16,7 @@
           cmake
           valgrind
           gdb
+          doxygen
         ];
 
         buildInputs = with pkgs; [

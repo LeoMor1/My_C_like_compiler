@@ -1,47 +1,66 @@
-#include "lexer/scan.h"
-#include "lexer/data.h"
-#include "lexer/token.h"
-#include "lexer/utils.h"
+#include "scan.h"
+#include "utils.h"
 
-static int next(void) 
+/** 
+ * Returns the next character from the input stream.
+ * @param data The lexer data.
+ * @return The next character.
+ */
+static char next(LexerData *data) 
 {
-    int c;
+    char c;
 
-    Column++;
-    if (Putback) 
+    data->column++;
+    if (data->putback) 
     {
-        c = Putback;
-        Putback = 0;
+        c = data->putback;
+        data->putback = 0;
         return c;
     }
 
-    c = fgetc(Infile);
+    c = fgetc(data->infile);
     if(c =='\n') 
     {
-        Column = 1;
-        Line++;
+        data->column = 1;
+        data->line++;
     }
     return c;
 }
 
-static void putback(int c) 
+/** 
+ * Puts a character back into the input stream.
+ * @param data The lexer data.
+ * @param c The character to put back.
+ */
+static void putback(LexerData *data, char c) 
 {
-    Putback = c;
+    data->putback = c;
 }
 
-static int skip(void)
+/** 
+ * Skips whitespace characters from the input stream.
+ * @param data The lexer data.
+ * @return The first non-whitespace character.
+ */
+static int skip(LexerData *data)
 {
     int c;
 
-    c = next();
+    c = next(data);
     while (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f')
     {
-        c = next();
+        c = next(data);
     }
     return c;
 }
 
-static int scanint(int c)
+/** 
+ * Scans an integer literal from the input stream.
+ * @param data The lexer data.
+ * @param c The first character of the integer literal.
+ * @return The scanned integer value.
+ */
+static int scanint(LexerData *data, char c)
 {
     int k, val=0;
 
@@ -49,24 +68,25 @@ static int scanint(int c)
     while (k >= 0)
     {
         val = val * 10 + k;
-        c = next();
+        c = next(data);
         k = chrpos("0123456789", c);
     }
 
-    putback(c);
+    putback(data, c);
     return val;
 }
 
-int scan(struct Token *t)
+int scan(LexerData *data, Token *t)
 {
-    int c;
+    char c;
 
-    c = skip();
+    c = skip(data);
 
     switch (c)
     {
     case EOF:
-        return (0);
+        t->token = T_EOF;
+        return 0;
     
     case '+':
         t->token = T_PLUS;
@@ -87,11 +107,11 @@ int scan(struct Token *t)
     default:
         if(isdigit(c)) {
             t->token = T_INTLIT;
-            t->intValue = scanint(c);
+            t->intValue = scanint(data, c);
             break;
         }
-        printf("Unreconized charactere %c on line %d and char %d", c, Line, Column);
-        return 1;
+        fprintf("Unreconized charactere %c on line %d and char %d\n", c, data->line, data->column);
+        t->token = T_UNDEFINED;
     }
 
     return 1;
