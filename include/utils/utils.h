@@ -9,6 +9,6 @@
  * @param c The character to find.
  * @return The index of the first occurrence of c in s, or -1 if not found.
  */
-int chrpos(char *s, int c);
+int chrpos(char *s, char c);
 
 #endif

@@ -17,11 +17,17 @@
           valgrind
           gdb
           doxygen
+          lcov
+          check
         ];
 
         buildInputs = with pkgs; [
 
         ];
+
+        shellHook = ''
+          export PKG_CONFIG_PATH="${pkgs.check}/lib/pkgconfig:$PKG_CONFIG_PATH"
+        '';
       };
     };
 }

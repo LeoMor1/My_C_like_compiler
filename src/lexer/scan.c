@@ -110,7 +110,7 @@ int scan(LexerData *data, Token *t)
             t->intValue = scanint(data, c);
             break;
         }
-        fprintf("Unreconized charactere %c on line %d and char %d\n", c, data->line, data->column);
+        printf("Unreconized charactere %c on line %d and char %d\n", c, data->line, data->column);
         t->token = T_UNDEFINED;
     }
 

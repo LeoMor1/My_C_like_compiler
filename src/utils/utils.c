@@ -1,6 +1,6 @@
 #include "utils.h"
 
-int chrpos(char *s, int c)
+int chrpos(char *s, char c)
 {
     char *p;
     p = strchr(s, c);
