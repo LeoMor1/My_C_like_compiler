@@ -27,6 +27,7 @@
 
         shellHook = ''
           export PKG_CONFIG_PATH="${pkgs.check}/lib/pkgconfig:$PKG_CONFIG_PATH"
+          export PATH="$PWD/scripts:$PATH"
         '';
       };
     };

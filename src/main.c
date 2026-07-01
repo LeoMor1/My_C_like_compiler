@@ -4,19 +4,6 @@
 #include <errno.h>
 
 /** 
- * Initializes the lexer data.
- * @param newData The lexer data to initialize.
- */
-static void init(LexerData *newData)
-{
-
-    newData->column = 1;
-    newData->line = 0;
-    newData->putback = '\n';
-    newData->infile = NULL;
-}
-
-/** 
  * Prints the usage message for the program.
  * @param prog The name of the program.
  */
@@ -34,13 +21,10 @@ int main(int argc, char **argv){
 
     LexerData data;
 
-    init(&data);
-    
-    if ((data.infile = fopen(argv[1], "r")) == NULL) {
-        fprintf(stderr, "Unable to open %s: %s\n", argv[1], strerror(errno));
-        return 1;
-    }
+    initLexerData(&data, argv[1]);
     
     scanfile(&data);
+
+    deleteLexerData(&data);
     return 0;
 }

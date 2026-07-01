@@ -25,6 +25,17 @@ typedef struct LexerData {
     FILE *infile;
 } LexerData;
 
+/** 
+ * Initializes the lexer data.
+ * @param newData The lexer data to initialize.
+ * @param filename The name of the file to open.
+ */
+void initLexerData(LexerData *newData, char *filename);
 
+/** 
+ * Deletes the lexer data.
+ * @param data The lexer data to delete.
+ */
+void deleteLexerData(LexerData *data);
 
 #endif

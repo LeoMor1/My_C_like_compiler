@@ -7,6 +7,7 @@ add_library(lexer_lib STATIC
   lexer/token.c
   lexer/scan.c
   lexer/lexer.c
+  lexer/data.c
 )
 target_include_directories(lexer_lib PRIVATE ${CMAKE_SOURCE_DIR}/include/lexer)
 target_link_libraries(lexer_lib PUBLIC utils_lib)

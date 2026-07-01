@@ -29,16 +29,19 @@ char* tokenTypeToStr(TokenType type)
     }
 }
 
-char* tokenToStr(Token *token)
-{
-    char *tokenStr = malloc(50 * sizeof(char));
-    if (tokenStr == NULL) {
-        return NULL; // Handle memory allocation failure
+char* tokenToStr(Token *token) {
+    char *tokenStr = NULL;
+    const char *typeStr = tokenTypeToStr(token->token);
+
+    if (token->token == T_INTLIT) {
+        if (asprintf(&tokenStr, "Token Type: %s, Value: %d", typeStr, token->intValue) < 0) {
+            return NULL;
+        }
+    } else {
+        if (asprintf(&tokenStr, "Token Type: %s", typeStr) < 0) {
+            return NULL;
+        }
     }
 
-    snprintf(tokenStr, 50, "Token Type: %s", tokenTypeToStr(token->token));
-    if (token->token == T_INTLIT) {
-        snprintf(tokenStr + strlen(tokenStr), 50 - strlen(tokenStr), ", Value: %d", token->intValue);
-    }
     return tokenStr;
 }
