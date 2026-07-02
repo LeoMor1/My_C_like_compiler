@@ -1,6 +1,4 @@
 #include "token.h"
-#include <stdlib.h>
-#include <string.h>
 
 char* tokenTypeToStr(TokenType type)
 {
@@ -31,9 +29,9 @@ char* tokenTypeToStr(TokenType type)
 
 char* tokenToStr(Token *token) {
     char *tokenStr = NULL;
-    const char *typeStr = tokenTypeToStr(token->token);
+    const char *typeStr = tokenTypeToStr(token->tokenType);
 
-    if (token->token == T_INTLIT) {
+    if (token->tokenType == T_INTLIT) {
         if (asprintf(&tokenStr, "Token Type: %s, Value: %d", typeStr, token->intValue) < 0) {
             return NULL;
         }

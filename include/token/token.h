@@ -2,6 +2,8 @@
 #define TOKEN_H
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef enum TokenType {
     /**
@@ -41,7 +43,7 @@ typedef struct Token {
     /**
      * @brief The type of the token.
      */
-    TokenType token;
+    TokenType tokenType;
     /**
      * @brief The integer value associated with the token.
      */

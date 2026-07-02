@@ -4,6 +4,7 @@
 
 Suite *lexer_suite(void);
 Suite *utils_suite(void);
+Suite *token_suite(void);
 
 int main(void)
 {
@@ -12,6 +13,7 @@ int main(void)
 
     sr = srunner_create(lexer_suite());
     srunner_add_suite(sr, utils_suite());
+    srunner_add_suite(sr, token_suite());
 
     srunner_run_all(sr, CK_NORMAL);
     number_failed = srunner_ntests_failed(sr);

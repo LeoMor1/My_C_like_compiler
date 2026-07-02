@@ -1,7 +1,10 @@
-#ifndef DATA_H
-#define DATA_H
+#ifndef LEXERDATA_H
+#define LEXERDATA_H
 
-# include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
 
 /**
  * @brief Structure to hold lexer data.

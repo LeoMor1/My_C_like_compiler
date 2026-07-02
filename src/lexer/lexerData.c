@@ -1,7 +1,5 @@
-#include "data.h"
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
+#include "lexerData.h"
+
 
 void initLexerData(LexerData *newData, char *filename)
 {

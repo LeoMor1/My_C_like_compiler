@@ -1,5 +1,4 @@
 #include "scan.h"
-#include "utils.h"
 
 /** 
  * Returns the next character from the input stream.
@@ -76,7 +75,7 @@ static int scanint(LexerData *data, char c)
     return val;
 }
 
-int scan(LexerData *data, Token *t)
+int scan(LexerData *data, Token *token)
 {
     char c;
 
@@ -85,33 +84,33 @@ int scan(LexerData *data, Token *t)
     switch (c)
     {
     case EOF:
-        t->token = T_EOF;
+        token->tokenType = T_EOF;
         return 0;
     
     case '+':
-        t->token = T_PLUS;
+        token->tokenType = T_PLUS;
         break;
 
     case '-':
-        t->token = T_MINUS;
+        token->tokenType = T_MINUS;
         break;
 
     case '/':
-        t->token = T_SLASH;
+        token->tokenType = T_SLASH;
         break;
 
     case '*':
-        t->token = T_STAR;
+        token->tokenType = T_STAR;
         break;
     
     default:
         if(isdigit(c)) {
-            t->token = T_INTLIT;
-            t->intValue = scanint(data, c);
+            token->tokenType = T_INTLIT;
+            token->intValue = scanint(data, c);
             break;
         }
         printf("Unreconized charactere %c on line %d and char %d\n", c, data->line, data->column);
-        t->token = T_UNDEFINED;
+        token->tokenType = T_UNDEFINED;
     }
 
     return 1;

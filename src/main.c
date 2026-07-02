@@ -13,18 +13,22 @@ static void usage(char * prog)
 }
 
 int main(int argc, char **argv){
-    if (argc != 2)
-    {
-        usage(argv[0]);
-        return 0;
-    }
+    // if (argc != 2)
+    // {
+    //     usage(argv[0]);
+    //     return 0;
+    // }
 
     LexerData data;
+    TokenList tokenList;
 
     initLexerData(&data, argv[1]);
+    initTokenList(&tokenList);
     
-    scanfile(&data);
+    scanfile(&data, &tokenList);
 
+    printTokenList(&tokenList);
     deleteLexerData(&data);
+    deleteTokenList(&tokenList);
     return 0;
 }

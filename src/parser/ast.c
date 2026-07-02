@@ -1,6 +1,4 @@
 #include "ast.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 ASTNode* mkAstNode(
     ASTNodeType type, 
@@ -31,4 +29,9 @@ ASTNode* mkAstLeaf(ASTNodeType type, int value)
 ASTNode* mkAstUnary(ASTNodeType type, ASTNode* childNode, int value)
 {
     return mkAstNode(type, childNode, NULL, value);
+}
+
+static ASTNode *primary(ParserData *data)
+{
+    
 }
