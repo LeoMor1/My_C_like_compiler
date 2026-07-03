@@ -81,6 +81,9 @@ int scan(LexerData *data, Token *token)
 
     c = skip(data);
 
+    token->line = data->line;
+    token->column = data->column;
+
     switch (c)
     {
     case EOF:

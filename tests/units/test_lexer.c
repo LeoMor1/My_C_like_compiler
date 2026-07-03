@@ -70,25 +70,25 @@ START_TEST(test_scanfile)
     ck_assert_ptr_nonnull(&tokenList);
     ck_assert_int_eq(getTokenListCount(&tokenList), 7);
 
-    Token *token = getToken(&tokenList, 0);
+    Token *token = getTokenAtInList(&tokenList, 0);
     ck_assert_str_eq(tokenToStr(token), "Token Type: intlist, Value: 1");
 
-    token = getToken(&tokenList, 1);
+    token = getTokenAtInList(&tokenList, 1);
     ck_assert_str_eq(tokenToStr(token), "Token Type: +");
 
-    token = getToken(&tokenList, 2);
+    token = getTokenAtInList(&tokenList, 2);
     ck_assert_str_eq(tokenToStr(token), "Token Type: -");
 
-    token = getToken(&tokenList, 3);
+    token = getTokenAtInList(&tokenList, 3);
     ck_assert_str_eq(tokenToStr(token), "Token Type: /");
 
-    token = getToken(&tokenList, 4);
+    token = getTokenAtInList(&tokenList, 4);
     ck_assert_str_eq(tokenToStr(token), "Token Type: *");
 
-    token = getToken(&tokenList, 5);
+    token = getTokenAtInList(&tokenList, 5);
     ck_assert_str_eq(tokenToStr(token), "Token Type: UNKMOWN");
 
-    token = getToken(&tokenList, 6);
+    token = getTokenAtInList(&tokenList, 6);
     ck_assert_str_eq(tokenToStr(token), "Token Type: EOF");
 
     deleteLexerData(&data);
@@ -106,7 +106,7 @@ START_TEST(test_scanfile_empty)
     ck_assert_ptr_nonnull(&tokenList);
     ck_assert_int_eq(getTokenListCount(&tokenList), 1);
 
-    Token *token = getToken(&tokenList, 0);
+    Token *token = getTokenAtInList(&tokenList, 0);
     ck_assert_str_eq(tokenToStr(token), "Token Type: EOF");
 
     deleteLexerData(&data);

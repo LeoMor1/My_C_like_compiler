@@ -82,4 +82,6 @@ ASTNode* mkAstUnary(ASTNodeType type, ASTNode* childNode, int value);
  */
 ASTNode* mkAstLeaf(ASTNodeType type, int value);
 
+ASTNode *binexpr(ParserData *data);
+
 #endif

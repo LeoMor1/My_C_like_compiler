@@ -48,6 +48,16 @@ typedef struct Token {
      * @brief The integer value associated with the token.
      */
     int intValue;
+
+    /**
+     * @brief The line number where the token is located.
+     */
+    int line;
+
+    /**
+     * @brief The column number where the token is located.
+     */
+    int column;
 } Token;
 
 /** 

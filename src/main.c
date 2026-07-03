@@ -1,4 +1,6 @@
 #include "lexer/lexer.h"
+#include "parser/parser.h"
+#include <paths.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -13,11 +15,11 @@ static void usage(char * prog)
 }
 
 int main(int argc, char **argv){
-    // if (argc != 2)
-    // {
-    //     usage(argv[0]);
-    //     return 0;
-    // }
+    if (argc != 2)
+    {
+        usage(argv[0]);
+        return 0;
+    }
 
     LexerData data;
     TokenList tokenList;
@@ -27,7 +29,12 @@ int main(int argc, char **argv){
     
     scanfile(&data, &tokenList);
 
+    int result = eval(&tokenList);
+
     printTokenList(&tokenList);
+
+    printf("%d\n", result);
+
     deleteLexerData(&data);
     deleteTokenList(&tokenList);
     return 0;

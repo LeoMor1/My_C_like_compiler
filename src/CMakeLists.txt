@@ -21,6 +21,8 @@ target_link_libraries(lexer_lib PUBLIC token_lib)
 add_library(parser_lib STATIC 
   parser/ast.c
   parser/parserData.c
+  parser/parser.c
+  parser/interpreter.c
 )
 target_include_directories(parser_lib PRIVATE ${CMAKE_SOURCE_DIR}/include/parser)
 target_link_libraries(parser_lib PUBLIC utils_lib)

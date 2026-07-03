@@ -13,6 +13,6 @@ void scanfile(LexerData *data, TokenList *tokenList)
     do 
     {
         scan(data, &token);
-        appendToken(tokenList, token);
+        appendTokenInList(tokenList, token);
     } while (token.tokenType != T_EOF);
 }

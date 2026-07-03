@@ -82,16 +82,16 @@ START_TEST(appendToken_and_getToken)
     Token token1 = {T_PLUS, 0};
     Token token2 = {T_INTLIT, 42};
 
-    appendToken(&list, token1);
-    appendToken(&list, token2);
+    appendTokenInList(&list, token1);
+    appendTokenInList(&list, token2);
 
     ck_assert_int_eq(getTokenListCount(&list), 2);
 
-    Token *retrievedToken1 = getToken(&list, 0);
+    Token *retrievedToken1 = getTokenAtInList(&list, 0);
     ck_assert_int_eq(retrievedToken1->tokenType, T_PLUS);
     ck_assert_int_eq(retrievedToken1->intValue, 0);
 
-    Token *retrievedToken2 = getToken(&list, 1);
+    Token *retrievedToken2 = getTokenAtInList(&list, 1);
     ck_assert_int_eq(retrievedToken2->tokenType, T_INTLIT);
     ck_assert_int_eq(retrievedToken2->intValue, 42);
 
@@ -106,7 +106,7 @@ START_TEST(growTokenList)
 
     for (size_t i = 0; i < 20; i++) {
         Token token = {T_INTLIT, (int)i};
-        appendToken(&list, token);
+        appendTokenInList(&list, token);
     }
 
     ck_assert_int_eq(getTokenListCount(&list), 20);
@@ -122,9 +122,9 @@ START_TEST(test_getToken_out_of_bounds)
     initTokenList(&list);
 
     Token token = {T_INTLIT, 42};
-    appendToken(&list, token);
-    getToken(&list, 0); // This should work
-    getToken(&list, 1); // This should cause an error and exit the program
+    appendTokenInList(&list, token);
+    getTokenAtInList(&list, 0); // This should work
+    getTokenAtInList(&list, 1); // This should cause an error and exit the program
 
 }
 END_TEST
@@ -137,12 +137,12 @@ START_TEST(test_tokenListToStr_and_printTokenList)
     Token token1 = {T_PLUS, 0};
     Token token2 = {T_INTLIT, 42};
 
-    appendToken(&list, token1);
-    appendToken(&list, token2);
+    appendTokenInList(&list, token1);
+    appendTokenInList(&list, token2);
 
     for (size_t i = 0; i < 20; i++) {
         Token token = {T_INTLIT, (int)i};
-        appendToken(&list, token);
+        appendTokenInList(&list, token);
     }
 
     char *listStr = tokenListToStr(&list);

@@ -1,6 +1,7 @@
 #include "tokenList.h"
 
 #define TOKENLIST_INITIAL_CAPACITY 16
+#define TOKENPRINT_BUFFER_INITIAL_CAPACITY 1024
 
 void initTokenList(TokenList *list)
 {
@@ -12,6 +13,7 @@ void initTokenList(TokenList *list)
     }
     list->capacity = TOKENLIST_INITIAL_CAPACITY;
     list->count = 0;
+    list->pos = 0;
 }
 
 void deleteTokenList(TokenList *list)
@@ -35,7 +37,7 @@ void static growTokenList(TokenList *list)
     list->capacity = newCapacity;
 }
 
-void appendToken(TokenList *list, Token token)
+void appendTokenInList(TokenList *list, Token token)
 {
     if(list->count >= list->capacity)
     {
@@ -45,7 +47,7 @@ void appendToken(TokenList *list, Token token)
     list->count++;
 }
 
-Token* getToken(TokenList *list, size_t index)
+Token* getTokenAtInList(TokenList *list, size_t index)
 {
     if(index >= list->count)
     {
@@ -55,14 +57,32 @@ Token* getToken(TokenList *list, size_t index)
     return &list->items[index];
 }
 
+Token* getCurrentTokenInList(TokenList* list)
+{
+    return getTokenAtInList(list, list->pos);
+}
+
 size_t getTokenListCount(TokenList *list)
 {
     return list->count;
 }
 
+static int isAtEndOfTokenList(TokenList *list)
+{
+    return list->pos >= list->count -1;
+}
+
+Token* getAndAdvanceTokenInList(TokenList *list)
+{
+    Token* result = getCurrentTokenInList(list);
+    if(!isAtEndOfTokenList(list))
+        list->pos++;
+    return result;
+}
+
 char* tokenListToStr(TokenList *list)
 {
-    size_t bufferSize = TOKENLIST_INITIAL_CAPACITY; // Initial buffer size
+    size_t bufferSize = TOKENPRINT_BUFFER_INITIAL_CAPACITY; // Initial buffer size
     char *buffer = malloc(bufferSize);
     if (buffer == NULL) {
         fprintf(stderr, "Failed to allocate memory for token list string\n");
@@ -72,7 +92,7 @@ char* tokenListToStr(TokenList *list)
     buffer[1] = '\0'; // Null-terminate the string
 
     for (size_t i = 0; i < list->count; i++) {
-        char *tokenStr = tokenTypeToStr(getToken(list, i)->tokenType);
+        char *tokenStr = tokenTypeToStr(getTokenAtInList(list, i)->tokenType);
         if (tokenStr == NULL) {
             free(buffer);
             fprintf(stderr, "Failed to convert token to string\n");

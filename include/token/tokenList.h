@@ -8,6 +8,7 @@ typedef struct TokenList
     Token* items;
     size_t count;
     size_t capacity;
+    size_t pos;
 }TokenList;
 
 /**
@@ -30,7 +31,7 @@ void deleteTokenList(TokenList *list);
  * @param list Pointer to the TokenList structure.
  * @param token The token to append.
  */
-void appendToken(TokenList *list, Token token);
+void appendTokenInList(TokenList *list, Token token);
 
 /**
  * @brief Retrieves a token from the TokenList.
@@ -38,7 +39,7 @@ void appendToken(TokenList *list, Token token);
  * @param index The index of the token to retrieve.
  * @return A pointer to the requested token, or NULL if the index is out of bounds.
  */
-Token* getToken(TokenList *list, size_t index);
+Token* getTokenAtInList(TokenList *list, size_t index);
 
 /**
  * @brief Gets the number of tokens in the TokenList.
@@ -46,6 +47,13 @@ Token* getToken(TokenList *list, size_t index);
  * @return The number of tokens in the list.
  */
 size_t getTokenListCount(TokenList *list);
+
+/**
+ *
+ */
+Token* getAndAdvanceTokenInList(TokenList *list);
+
+Token* getCurrentTokenInList(TokenList* list);
 
 char* tokenListToStr(TokenList *list);
 void printTokenList(TokenList *list);
